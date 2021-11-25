@@ -6,12 +6,20 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', (req, res) => {
   // find all products
-  User.findAll()
-  .then(products => res.json(products))
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+ Post.findAll({ 
+   attributes: ['id', 'post_url', 'title'],
+   include: [
+     { 
+       model: 'product',
+       attributes: ['product']
+     }
+   ]
+ })
+ .then(products => res.json(products))
+ .catch(err => {
+   console.error(err);
+   res.status(500).send(err);
+ });
   // be sure to include its associated Category and Tag data
 });
 
@@ -19,21 +27,29 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
-  User.findOne({
-    where: { 
+  Post.findOne({
+    where: {
       id: req.params.id
-    }
-  }).then(product => {
-    if (!product) {
-      res.status(404).json({ message: 'Product not found'});
-      return;
-    }
-    res.json(product);
+    },
+    attributes: ['id', 'post_url', 'title',],
+    include: [
+      {
+        model: User,
+        attributes: ['products']
+      }
+    ]
   })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then(products => {
+      if (!products) {
+        res.status(404).json({ message: 'No post found with this id' });
+        return;
+      }
+      res.json(products);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // create new product

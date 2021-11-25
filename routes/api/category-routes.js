@@ -6,7 +6,7 @@ const { Category, Product } = require('../../models');
 router.get('/', (req, res) => {
   // be sure to include its associated Products
   User.findAll()
-    .then(category => res.json(category))
+    .then(dbUserData => res.json(dbUserData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -20,12 +20,12 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     }
   })
-  .then(category => {
-    if (!category) {
-      res.status(404).json({ message: "No category found"});
+  .then(dbUserData => {
+    if (!dbUserData) {
+      res.status(404).json({ message: "No Id found"});
       return;
     }
-    res.json(category);
+    res.json(dbUserData);
   })
   .catch(err => {
     console.log(err);
@@ -37,33 +37,55 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new category
   User.create({
-
+    product: req.body.product,
+    productTag: req.body.productTag,
+    tag: req.body.tag
   })
-});
-
-router.put('/:id', (req, res) => {
-  // update a category by its `id` value
-
-});
-
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
-  User.delete({
-    where: {
-      id: req.params.id,
-    }
-  })
-  .then(category => {
-    if(!category) {
-      res.status(404).json({ message: 'Category Deleted'});
-      return;
-    }
-    res.json(category);
-  })
+  .then(dbUserData => res.json(dbUserData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
   });
+});
+
+router.put('/:id', (req, res) => {
+  // update a category by its `id` value
+  User.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(dbUserData => {
+      if (!dbUserData[0]) {
+        res.status(404).json({ message: 'No Id found' });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  // delete a category by its `id` value
+  User.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;

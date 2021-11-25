@@ -13,6 +13,17 @@ Category.init(
       primaryKey: true,
       autoIncrement: true
     },
+    product: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ProductTag: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Tags: {
+      type: DataTypes.STRING
+    }
   },
   {
     sequelize,

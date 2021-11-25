@@ -18,7 +18,7 @@ Product.belongsToMany(Tag, {
   as: 'user_id'
 });
 // Tags belongToMany Products (through ProductTag)
-Tag.BelongToMany(Product {
+Tag.BelongToMany(Product, {
   through: ProductTag,
   foreignKey: 'user_id'
 });

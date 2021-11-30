@@ -23,11 +23,11 @@ router.get('/', (req, res) => {
   // be sure to include its associated Category and Tag data
 });
 
-// get one product
+// get one product 
+// find a single product by its `id`
+// be sure to include its associated Category and Tag data
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
-  Post.findOne({
+  Product.findOne({
     where: {
       id: req.params.id
     },
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
 
 // create new product
 router.post('/', (req, res) => {
-  User.create(
+  Product.create(
     {
       product_name: "Basketball",
       price: 200.00,

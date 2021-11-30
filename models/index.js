@@ -1,3 +1,5 @@
+const sequelize = require('../config/connection');
+
 // import models
 const Product = require('./Product');
 const Category = require('./Category');
@@ -13,12 +15,12 @@ Category.haveMany(Product, {
   foreignKey: 'category_id'
 });
 // Products belongToMany Tags (through ProductTag)
-Product.belongsToMany(Tag, {
+Product.belongToMany(Tag, {
   through: ProductTag,
   foreignKey: 'product_id'
 });
 // Tags belongToMany Products (through ProductTag)
-Tag.BelongToMany(Product, {
+Tag.belongToMany(Product, {
   through: ProductTag,
   foreignKey: 'tag_id'
 });

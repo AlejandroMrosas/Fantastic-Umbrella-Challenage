@@ -11,8 +11,6 @@ router.get('/', (req, res) => {
   const tags = tags
   
 });
-
-
 // find a single tag by its `id`
   // be sure to include its associated Product data
 router.get('/:id', (req, res) => {

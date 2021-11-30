@@ -9,21 +9,20 @@ ProductTag.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      allowNull: false
     },
-    user_id: {
+    product_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
-        model: 'user',
+        module: "product",
         key: 'id'
       }
     },
-    post_id: {
+    tag_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
-        model: 'post',
+        model: 'tag',
         key: 'id'
       }
     }

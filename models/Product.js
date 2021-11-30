@@ -15,22 +15,30 @@ Product.init(
       primaryKey: true,
       autoIncrement: true
     },
-    title: { 
+    product_name: { 
       type: DataTypes.STRING,
       allowNull: false
     },
-    post_url: {
-      type: DataTypes.STRING,
+    price: {
+      type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        isUrl: true
+        isDecimal: true
       }
     },
-    user_id: {
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        isNumeric: true
+      }
+    },
+    category_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'user',
-        key: id
+        model: 'category',
+        key: 'id'
       }
     }
   },

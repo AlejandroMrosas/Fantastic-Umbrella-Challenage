@@ -6,3 +6,4 @@ How to create a scema with myql
 
 We have to create a walk-through video of the project. 
 
+https://watch.screencastify.com/v/MPGZITNENPOOw6EeOLlZ
